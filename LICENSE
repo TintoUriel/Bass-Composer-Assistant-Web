@@ -1,0 +1,42 @@
+Bass Composer Assistant Web — Custom License (Uso Público, Sin Modificación)
+Copyright (c) 2026 Uriel Tinto. Todos los derechos reservados.
+
+1. USO PERMITIDO
+   Cualquier persona puede:
+   - Ver y leer el código fuente de este repositorio.
+   - Descargar, compilar y ejecutar el software, para uso personal o comercial,
+     sin costo.
+
+2. LO QUE NO ESTÁ PERMITIDO
+   Salvo lo indicado en la sección 3 (Contribuciones), nadie puede, sin permiso
+   escrito previo del autor:
+   - Modificar el código fuente.
+   - Crear obras derivadas basadas en este software.
+   - Redistribuir el código fuente, modificado o no, fuera de este repositorio.
+   - Publicar, sublicenciar, vender o relicenciar el código fuente.
+   - Usar el código fuente (no el ejecutable compilado) como base de otro
+     proyecto, propio o de terceros.
+
+3. CONTRIBUCIONES (ÚNICA EXCEPCIÓN)
+   La única forma permitida de modificar este código es proponiendo cambios
+   directamente al repositorio oficial:
+   https://github.com/TintoUriel/Bass-Composer-Assistant-Web
+   mediante un Pull Request.
+
+   Al enviar un Pull Request, quien contribuye acepta que:
+   - Su contribución se licencia al autor (Uriel Tinto) bajo los mismos
+     términos que este archivo.
+   - El autor puede incorporar, modificar, rechazar o relicenciar esa
+     contribución como parte del proyecto, sin restricciones.
+   - Quien contribuye no obtiene ningún derecho sobre el resto del código del
+     proyecto por el solo hecho de contribuir.
+
+4. SIN GARANTÍA
+   Este software se entrega "como está", sin garantía de ningún tipo, expresa
+   o implícita. El autor no es responsable por ningún daño derivado del uso
+   de este software.
+
+5. CONTACTO
+   Para pedir permiso para algo no cubierto en este archivo (por ejemplo,
+   crear una versión modificada fuera de este repositorio), abrí un issue en
+   el repositorio o contactá al autor directamente.

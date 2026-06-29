@@ -14,5 +14,8 @@ node_modules/
 *.tsbuildinfo
 npm-debug.log*
 
+# Vercel CLI link (root-level, used for `vercel --prod` from the repo root)
+.vercel
+
 # Copia de referencia del repo desktop (commit 8692c71), no se versiona acá
 Bass-Composer-Assistant/
