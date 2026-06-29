@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BassComposerAssistant.Api.Web/BassComposerAssistant.Api.Web.csproj" />
+  <Project Path="BassComposerAssistant.Core/BassComposerAssistant.Core.csproj" />
+  <Project Path="BassComposerAssistant.Services/BassComposerAssistant.Services.csproj" />
+  <Project Path="tests/BassComposerAssistant.Tests/BassComposerAssistant.Tests.csproj" />
+</Solution>

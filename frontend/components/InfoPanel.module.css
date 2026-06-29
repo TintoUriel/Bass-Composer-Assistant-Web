@@ -1,0 +1,48 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.chordName {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 2px 0 4px;
+}
+
+.chordNotes {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.row {
+  display: flex;
+  gap: 32px;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.scaleName {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.scaleNotes {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.nextChord {
+  font-size: 20px;
+  font-weight: 600;
+}

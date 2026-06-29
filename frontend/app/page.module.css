@@ -1,0 +1,87 @@
+.page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-family: var(--font-geist-sans);
+}
+
+.header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--groove);
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.header h1 .brandAccent {
+  color: var(--walnut);
+}
+
+.apiStatus {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  padding: 24px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--groove);
+  border-radius: 6px;
+  padding: 18px;
+}
+
+.transportRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.panelRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin: 4px 0 -8px 2px;
+}
+
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+}

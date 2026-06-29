@@ -1,0 +1,18 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+
+# IDE
+.vs/
+.vscode/
+*.user
+
+# Node / Next.js
+node_modules/
+.next/
+.env*.local
+*.tsbuildinfo
+npm-debug.log*
+
+# Copia de referencia del repo desktop (commit 8692c71), no se versiona acá
+Bass-Composer-Assistant/

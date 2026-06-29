@@ -1,0 +1,74 @@
+"use client";
+
+import { usePlayback } from "@/context/PlaybackContext";
+import { QUALITY_OPTIONS, ROOT_OPTIONS } from "@/lib/chordPalette";
+import styles from "./ChordPalette.module.css";
+
+export function ChordPalette() {
+  const {
+    progressionText,
+    invalidTokens,
+    selectedRootPitchClass,
+    selectedRootName,
+    selectRoot,
+    addChord,
+    removeLastChord,
+    clearProgression,
+  } = usePlayback();
+
+  return (
+    <div className={styles.palette}>
+      <div className={`${styles.display} ${progressionText ? "" : styles.displayEmpty}`}>
+        {progressionText || "— SIN ACORDES —"}
+      </div>
+
+      {invalidTokens.length > 0 && (
+        <div className={styles.invalidTokens}>
+          Acordes no reconocidos: {invalidTokens.join(", ")}
+        </div>
+      )}
+
+      <div className={styles.grid}>
+        <div className={styles.section}>
+          <span className={styles.eyebrow}>Raíz</span>
+          <div className={styles.rootGrid}>
+            {ROOT_OPTIONS.map((root) => (
+              <button
+                key={root.pitchClass}
+                type="button"
+                className={`${styles.button} ${root.pitchClass === selectedRootPitchClass ? styles.buttonSelected : ""}`}
+                onClick={() => selectRoot(root.pitchClass)}
+              >
+                {root.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <span className={styles.eyebrow}>Calidad — Raíz {selectedRootName}</span>
+          <div className={styles.qualityGrid}>
+            {QUALITY_OPTIONS.map((quality) => (
+              <button
+                key={quality.suffix}
+                type="button"
+                className={styles.button}
+                onClick={() => addChord(quality.suffix)}
+              >
+                {quality.label}
+              </button>
+            ))}
+          </div>
+          <div className={styles.actions}>
+            <button type="button" className={styles.actionButton} onClick={removeLastChord}>
+              ⌫ Quitar último
+            </button>
+            <button type="button" className={styles.actionButton} onClick={clearProgression}>
+              ✕ Limpiar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

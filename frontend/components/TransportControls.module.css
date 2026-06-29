@@ -1,0 +1,104 @@
+.transport {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.transportButton {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--groove);
+  border-radius: 3px;
+  background: #232019;
+  color: var(--cream);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.transportButton:hover:not(:disabled) {
+  background: #2c2822;
+}
+
+.transportButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.faderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.faderRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faderValue {
+  width: 32px;
+  font-family: var(--font-geist-mono);
+  color: var(--amber);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.beatLamps {
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+
+.beatLamp {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin: 0 3px;
+  background: var(--groove);
+  border: 1px solid #000;
+}
+
+.beatLampLit {
+  background: var(--amber);
+  animation: beat-pop 0.2s ease-out;
+}
+
+@keyframes beat-pop {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.toggle {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--groove);
+  border-radius: 3px;
+  background: #232019;
+  color: #999;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.toggleActive {
+  border-color: var(--amber);
+  color: var(--amber);
+}

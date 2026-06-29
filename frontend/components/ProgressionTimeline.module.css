@@ -1,0 +1,31 @@
+.timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.step {
+  padding: 8px 16px;
+  border: 1px solid var(--groove);
+  border-radius: 2px;
+  background: #232019;
+  color: var(--cream);
+  font-family: var(--font-geist-mono);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.step:hover {
+  border-color: var(--amber-dim);
+}
+
+.stepCurrent {
+  background: var(--amber);
+  color: var(--groove);
+  font-weight: bold;
+}
+
+.empty {
+  opacity: 0.5;
+  font-size: 13px;
+}

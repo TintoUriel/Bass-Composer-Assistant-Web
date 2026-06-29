@@ -1,0 +1,30 @@
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.noteLabel {
+  font-size: 10px;
+  fill: #eee;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.noteLabelHighlighted {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #fff;
+}
+
+.fretLabel {
+  font-size: 11px;
+  fill: #999;
+  text-anchor: middle;
+}

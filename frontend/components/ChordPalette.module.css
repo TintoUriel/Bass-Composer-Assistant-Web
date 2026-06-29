@@ -1,0 +1,101 @@
+.palette {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.display {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--groove);
+  border-radius: 4px;
+  font-family: var(--font-geist-mono);
+  font-size: 16px;
+  color: var(--amber);
+  letter-spacing: 1px;
+}
+
+.displayEmpty {
+  opacity: 0.45;
+  font-size: 13px;
+}
+
+.invalidTokens {
+  color: #e2734f;
+  font-size: 12px;
+}
+
+.grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.rootGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 46px);
+  gap: 3px;
+}
+
+.qualityGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 460px;
+}
+
+.button {
+  height: 38px;
+  min-width: 46px;
+  border: 1px solid var(--groove);
+  border-radius: 3px;
+  background: #232019;
+  color: var(--cream);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #2c2822;
+}
+
+.buttonSelected {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.actionButton {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--groove);
+  border-radius: 3px;
+  background: #232019;
+  color: var(--cream);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.actionButton:hover {
+  background: #2c2822;
+}
