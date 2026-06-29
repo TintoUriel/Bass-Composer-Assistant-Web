@@ -1,7 +1,14 @@
 # Bass Composer Assistant — Web
 
+[![Deployed on Vercel](https://img.shields.io/badge/demo-bass--composer--assistant--web.vercel.app-black?logo=vercel)](https://bass-composer-assistant-web.vercel.app)
+
 Versión web (ASP.NET Core 8 API + Next.js/React) de Bass Composer Assistant. Ver
 [CLAUDE.md](CLAUDE.md) para el roadmap completo de la migración.
+
+**Demo (solo frontend, sin backend desplegado):** https://bass-composer-assistant-web.vercel.app —
+el `frontend/` se deploya automáticamente en Vercel con cada push a `master`. Como el backend
+ASP.NET Core todavía no está hosteado en ningún lado, la demo va a mostrar "Backend: no
+conectado" — ver la sección de hosting más abajo.
 
 ## Requisitos
 
