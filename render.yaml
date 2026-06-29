@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: bass-composer-assistant-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: ./api
+    healthCheckPath: /api/health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: AllowedOrigins__0
+        value: https://bass-composer-assistant-web.vercel.app

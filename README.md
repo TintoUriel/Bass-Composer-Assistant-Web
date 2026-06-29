@@ -5,10 +5,29 @@
 Versión web (ASP.NET Core 8 API + Next.js/React) de Bass Composer Assistant. Ver
 [CLAUDE.md](CLAUDE.md) para el roadmap completo de la migración.
 
-**Demo (solo frontend, sin backend desplegado):** https://bass-composer-assistant-web.vercel.app —
-el `frontend/` se deploya automáticamente en Vercel con cada push a `master`. Como el backend
-ASP.NET Core todavía no está hosteado en ningún lado, la demo va a mostrar "Backend: no
-conectado" — ver la sección de hosting más abajo.
+**Demo:** https://bass-composer-assistant-web.vercel.app — el `frontend/` se deploya
+automáticamente en Vercel con cada push a `master`.
+
+## Hosting del backend (Render, gratis)
+
+El repo trae listo un `render.yaml` (Blueprint) y un `api/Dockerfile` para deployar la API en
+[Render](https://render.com) gratis. Pasos (una sola vez, manual porque Render exige autorizar su
+GitHub App desde el navegador):
+
+1. Entrar a [render.com](https://render.com) → **New +** → **Blueprint**.
+2. Conectar el repo `TintoUriel/Bass-Composer-Assistant-Web` (autorizar la GitHub App de Render).
+3. Render detecta `render.yaml` solo y crea el servicio `bass-composer-assistant-api` (plan free,
+   Docker, healthcheck en `/api/health`, CORS ya apuntando al dominio de Vercel vía
+   `AllowedOrigins__0`).
+4. Una vez que el primer deploy esté `Live`, copiar la URL (`https://bass-composer-assistant-api-XXXX.onrender.com`)
+   y configurarla como `NEXT_PUBLIC_API_BASE_URL` en el proyecto de Vercel (Settings → Environment
+   Variables) → redeploy del frontend.
+
+De ahí en más, cada push a `master` redeploya la API sola, igual que el frontend.
+
+**Letra chica del free tier de Render**: el servicio se "duerme" a los 15 min sin tráfico y el
+primer request después de eso tarda ~30-60s en responder (cold start) mientras arranca de nuevo —
+normal en el plan gratis, no es un bug.
 
 ## Requisitos
 
