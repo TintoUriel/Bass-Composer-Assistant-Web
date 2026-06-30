@@ -34,6 +34,33 @@ public class FretboardHighlightServiceTests
     }
 
     [Fact]
+    public void BuildTriadHighlightMap_DropsSeventhAndKeepsOnlyRootThirdFifth()
+    {
+        var chord = new Chord
+        {
+            Name = "C7",
+            Root = new Note(0, "C"),
+            Quality = ChordQuality.Dominant7,
+            Notes = new[]
+            {
+                new ChordTone(new Note(0, "C"), ChordDegree.Root),
+                new ChordTone(new Note(4, "E"), ChordDegree.Third),
+                new ChordTone(new Note(7, "G"), ChordDegree.Fifth),
+                new ChordTone(new Note(10, "A#"), ChordDegree.Seventh),
+            },
+            SuggestedScale = new Scale { Name = "C Mixolidio", Root = new Note(0, "C"), Type = ScaleType.Mixolydian, Notes = Array.Empty<ScaleTone>() },
+        };
+
+        var map = _sut.BuildTriadHighlightMap(chord);
+
+        Assert.Equal(3, map.Count);
+        Assert.Equal(HighlightType.ChordRoot, map[0]);
+        Assert.Equal(HighlightType.ChordThird, map[4]);
+        Assert.Equal(HighlightType.ChordFifth, map[7]);
+        Assert.False(map.ContainsKey(10));
+    }
+
+    [Fact]
     public void BuildScaleHighlightMap_MapsEachScaleToneToItsDegreeColor()
     {
         var scale = new Scale

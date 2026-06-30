@@ -37,6 +37,17 @@ public sealed class FretboardHighlightService : IFretboardHighlightService
         return map;
     }
 
+    private static readonly HashSet<ChordDegree> TriadDegrees = new() { ChordDegree.Root, ChordDegree.Third, ChordDegree.Fifth };
+
+    public IReadOnlyDictionary<int, HighlightType> BuildTriadHighlightMap(Chord chord)
+    {
+        var map = new Dictionary<int, HighlightType>();
+        foreach (var tone in chord.Notes)
+            if (TriadDegrees.Contains(tone.Degree))
+                map[tone.Note.PitchClass] = ChordDegreeHighlights[tone.Degree];
+        return map;
+    }
+
     public IReadOnlyDictionary<int, HighlightType> BuildScaleHighlightMap(Scale scale)
     {
         var map = new Dictionary<int, HighlightType>();

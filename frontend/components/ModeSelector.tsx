@@ -6,6 +6,7 @@ import styles from "./ModeSelector.module.css";
 
 const MODES: { value: VisualizationMode; label: string }[] = [
   { value: "Chord", label: "Acorde" },
+  { value: "Triads", label: "Triadas" },
   { value: "Scale", label: "Escala" },
   { value: "CommonTones", label: "Notas comunes" },
 ];

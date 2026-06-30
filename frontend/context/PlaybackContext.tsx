@@ -15,9 +15,11 @@ import {
   fetchCommonTonesHighlights,
   fetchFretboard,
   fetchScaleHighlights,
+  fetchTriadHighlights,
   parseProgression,
 } from "@/lib/api";
 import { ROOT_OPTIONS } from "@/lib/chordPalette";
+import { PROGRESSION_PRESETS } from "@/lib/presets";
 import type { ChordDto, FretPositionDto, HighlightType, VisualizationMode } from "@/lib/types";
 import { usePlaybackClock } from "@/hooks/usePlaybackClock";
 import { getAudioContext } from "@/lib/audio/audioContext";
@@ -64,6 +66,7 @@ interface PlaybackContextValue {
 
   selectRoot: (pitchClass: number) => void;
   addChord: (suffix: string) => void;
+  applyPreset: (presetId: string) => void;
   removeLastChord: () => void;
   clearProgression: () => void;
   play: () => void;
@@ -161,9 +164,11 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       const map =
         selectedMode === "Chord"
           ? await fetchChordHighlights(currentChord.name)
-          : selectedMode === "Scale"
-            ? await fetchScaleHighlights(currentChord.name)
-            : await fetchCommonTonesHighlights(chords.map((chord) => chord.name));
+          : selectedMode === "Triads"
+            ? await fetchTriadHighlights(currentChord.name)
+            : selectedMode === "Scale"
+              ? await fetchScaleHighlights(currentChord.name)
+              : await fetchCommonTonesHighlights(chords.map((chord) => chord.name));
 
       setHighlights(map);
     }
@@ -220,6 +225,22 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       setProgressionText((prev) => (prev.length === 0 ? token : `${prev} ${token}`));
     },
     [selectedRootName],
+  );
+
+  const applyPreset = useCallback(
+    (presetId: string) => {
+      const preset = PROGRESSION_PRESETS.find((candidate) => candidate.id === presetId);
+      if (!preset) return;
+
+      const tokens = preset.steps.map((step) => {
+        const pitchClass = (selectedRootPitchClass + step.semitonesFromRoot) % 12;
+        const rootName = ROOT_OPTIONS.find((option) => option.pitchClass === pitchClass)?.name ?? "C";
+        return rootName + step.suffix;
+      });
+
+      setProgressionText(tokens.join(" "));
+    },
+    [selectedRootPitchClass],
   );
 
   const removeLastChord = useCallback(() => {
@@ -284,6 +305,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
 
       selectRoot,
       addChord,
+      applyPreset,
       removeLastChord,
       clearProgression,
       play,
@@ -315,6 +337,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       highlights,
       selectRoot,
       addChord,
+      applyPreset,
       removeLastChord,
       clearProgression,
       play,

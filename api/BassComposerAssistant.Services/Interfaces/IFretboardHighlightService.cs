@@ -16,6 +16,12 @@ public interface IFretboardHighlightService
     /// <summary>Builds the pitch-class -> HighlightType map for "Modo Acorde" (one color per chord degree).</summary>
     IReadOnlyDictionary<int, HighlightType> BuildChordHighlightMap(Chord chord);
 
+    /// <summary>
+    /// Builds the pitch-class -> HighlightType map for "Modo Triadas": only root/third/fifth,
+    /// even when the chord itself carries a 7th/9th/11th/13th (e.g. a C7 still highlights just C-E-G).
+    /// </summary>
+    IReadOnlyDictionary<int, HighlightType> BuildTriadHighlightMap(Chord chord);
+
     /// <summary>Builds the pitch-class -> HighlightType map for "Modo Escala" (one color per scale degree).</summary>
     IReadOnlyDictionary<int, HighlightType> BuildScaleHighlightMap(Scale scale);
 

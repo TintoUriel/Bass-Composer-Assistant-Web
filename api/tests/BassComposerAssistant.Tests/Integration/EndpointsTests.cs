@@ -93,6 +93,29 @@ public class EndpointsTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
+    public async Task TriadHighlights_SeventhChord_OnlyReturnsRootThirdFifth()
+    {
+        var response = await _client.PostAsJsonAsync("/api/highlights/triad", new { chordSymbol = "C7" });
+
+        response.EnsureSuccessStatusCode();
+        var body = await response.Content.ReadFromJsonAsync<HighlightMapResponse>();
+
+        Assert.NotNull(body);
+        Assert.Equal(3, body!.Highlights.Count);
+        Assert.Equal("ChordRoot", body.Highlights[0]);
+        Assert.Equal("ChordThird", body.Highlights[4]);
+        Assert.Equal("ChordFifth", body.Highlights[7]);
+    }
+
+    [Fact]
+    public async Task TriadHighlights_InvalidSymbol_ReturnsBadRequest()
+    {
+        var response = await _client.PostAsJsonAsync("/api/highlights/triad", new { chordSymbol = "Xyz" });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task ScaleHighlights_KnownChord_ReturnsScaleDegreeMap()
     {
         var response = await _client.PostAsJsonAsync("/api/highlights/scale", new { chordSymbol = "Am" });

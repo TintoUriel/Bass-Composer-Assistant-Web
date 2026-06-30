@@ -49,6 +49,10 @@ export function fetchScaleHighlights(chordSymbol: string) {
   return fetchHighlightMap("/api/highlights/scale", { chordSymbol });
 }
 
+export function fetchTriadHighlights(chordSymbol: string) {
+  return fetchHighlightMap("/api/highlights/triad", { chordSymbol });
+}
+
 export function fetchCommonTonesHighlights(chordSymbols: string[]) {
   return fetchHighlightMap("/api/highlights/common-tones", { chordSymbols });
 }

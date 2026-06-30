@@ -1,4 +1,4 @@
-export type VisualizationMode = "Chord" | "Scale" | "CommonTones";
+export type VisualizationMode = "Chord" | "Scale" | "CommonTones" | "Triads";
 
 export type HighlightType =
   | "None"

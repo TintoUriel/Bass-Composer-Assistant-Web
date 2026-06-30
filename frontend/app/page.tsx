@@ -27,12 +27,6 @@ export default function Home() {
           <h1>
             BASS COMPOSER<span className={styles.brandAccent}> · ASSISTANT</span>
           </h1>
-          <span className={styles.apiStatus}>
-            Backend:{" "}
-            {apiStatus === "checking" && "comprobando..."}
-            {apiStatus === "ok" && "✅ conectado"}
-            {apiStatus === "error" && "❌ sin conexión"}
-          </span>
         </header>
 
         <main className={styles.main}>
@@ -65,6 +59,15 @@ export default function Home() {
             <InfoPanel />
           </div>
         </main>
+
+        <footer className={styles.footer}>
+          <span className={styles.apiStatus}>
+            Backend:{" "}
+            {apiStatus === "checking" && "comprobando..."}
+            {apiStatus === "ok" && "conectado"}
+            {apiStatus === "error" && "sin conexión"}
+          </span>
+        </footer>
       </div>
     </PlaybackProvider>
   );

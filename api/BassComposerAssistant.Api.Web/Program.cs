@@ -65,6 +65,15 @@ app.MapPost("/api/highlights/chord", (ChordSymbolRequest request, IChordParserSe
     return Results.Ok(new HighlightMapResponse(ToStringKeyed(map)));
 });
 
+app.MapPost("/api/highlights/triad", (ChordSymbolRequest request, IChordParserService parser, IFretboardHighlightService highlights) =>
+{
+    if (!parser.TryParseChord(request.ChordSymbol, out var chord) || chord is null)
+        return Results.BadRequest($"Invalid chord symbol: {request.ChordSymbol}");
+
+    var map = highlights.BuildTriadHighlightMap(chord);
+    return Results.Ok(new HighlightMapResponse(ToStringKeyed(map)));
+});
+
 app.MapPost("/api/highlights/scale", (ChordSymbolRequest request, IChordParserService parser, IFretboardHighlightService highlights) =>
 {
     if (!parser.TryParseChord(request.ChordSymbol, out var chord) || chord is null)

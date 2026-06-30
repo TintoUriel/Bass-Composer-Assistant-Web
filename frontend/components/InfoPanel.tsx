@@ -1,10 +1,12 @@
 "use client";
 
 import { usePlayback } from "@/context/PlaybackContext";
+import type { VisualizationMode } from "@/lib/types";
 import styles from "./InfoPanel.module.css";
 
-const MODE_LABELS = {
+const MODE_LABELS: Record<VisualizationMode, string> = {
   Chord: "Acorde",
+  Triads: "Triadas",
   Scale: "Escala",
   CommonTones: "Notas comunes",
 };

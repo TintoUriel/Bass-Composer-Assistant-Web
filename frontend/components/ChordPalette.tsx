@@ -2,6 +2,7 @@
 
 import { usePlayback } from "@/context/PlaybackContext";
 import { QUALITY_OPTIONS, ROOT_OPTIONS } from "@/lib/chordPalette";
+import { PROGRESSION_PRESETS } from "@/lib/presets";
 import styles from "./ChordPalette.module.css";
 
 export function ChordPalette() {
@@ -12,6 +13,7 @@ export function ChordPalette() {
     selectedRootName,
     selectRoot,
     addChord,
+    applyPreset,
     removeLastChord,
     clearProgression,
   } = usePlayback();
@@ -66,6 +68,22 @@ export function ChordPalette() {
             <button type="button" className={styles.actionButton} onClick={clearProgression}>
               ✕ Limpiar
             </button>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <span className={styles.eyebrow}>Presets — Tonalidad {selectedRootName}</span>
+          <div className={styles.qualityGrid}>
+            {PROGRESSION_PRESETS.map((preset) => (
+              <button
+                key={preset.id}
+                type="button"
+                className={styles.actionButton}
+                onClick={() => applyPreset(preset.id)}
+              >
+                {preset.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
