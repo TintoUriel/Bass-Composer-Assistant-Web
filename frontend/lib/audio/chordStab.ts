@@ -31,7 +31,6 @@ function getSampler(): { sampler: Tone.Sampler; ready: Promise<void> } {
       baseUrl: "https://tonejs.github.io/audio/salamander/",
       onload: resolveLoaded,
     }).toDestination();
-    newSampler.volume.value = VOLUME_DB;
 
     sampler = newSampler;
   }
@@ -43,11 +42,19 @@ function midiToNoteName(midiNote: number): string {
   return Tone.Frequency(midiNote, "midi").toNote();
 }
 
-export function playChordStab(midiNotes: readonly number[]): void {
+// Misma perilla de volumen que el click del metrónomo: fracción lineal 0–1 convertida a dB
+// relativos al nivel base del sampler, así ambos sonidos suben/bajan juntos.
+function volumeToDb(volume: number): number {
+  if (volume <= 0) return -Infinity;
+  return VOLUME_DB + 20 * Math.log10(volume);
+}
+
+export function playChordStab(midiNotes: readonly number[], volume = 1): void {
   if (midiNotes.length === 0) return;
 
   const { sampler, ready } = getSampler();
   const notes = midiNotes.map(midiToNoteName);
+  sampler.volume.value = volumeToDb(volume);
 
   if (sampler.loaded) sampler.triggerAttackRelease(notes, DURATION_S);
   else ready.then(() => sampler.triggerAttackRelease(notes, DURATION_S));

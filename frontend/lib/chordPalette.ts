@@ -15,6 +15,13 @@ export const ROOT_OPTIONS: { pitchClass: number; name: string }[] = [
   { pitchClass: 11, name: "B" },
 ];
 
+// Orden del círculo de quintas, en sentido horario desde C (cada paso suma 7 semitonos / sube
+// una quinta justa). Se deriva de ROOT_OPTIONS para no duplicar el deletreo de cada raíz.
+const FIFTHS_PITCH_CLASSES = [0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5];
+export const CIRCLE_OF_FIFTHS = FIFTHS_PITCH_CLASSES.map(
+  (pitchClass) => ROOT_OPTIONS.find((root) => root.pitchClass === pitchClass)!,
+);
+
 export const QUALITY_OPTIONS: { suffix: string; label: string }[] = [
   { suffix: "", label: "Mayor" },
   { suffix: "m", label: "Menor" },

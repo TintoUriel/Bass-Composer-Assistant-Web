@@ -185,7 +185,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   // se dispara con el evento ChordChanged, no solo durante el playback).
   useEffect(() => {
     if (currentChord && isChordSoundEnabledRef.current) {
-      playChordStab(currentChord.suggestedVoicingMidiNotes);
+      playChordStab(currentChord.suggestedVoicingMidiNotes, volumeRef.current / 100);
     }
   }, [currentChord]);
 

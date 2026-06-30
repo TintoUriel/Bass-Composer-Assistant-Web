@@ -1,17 +1,16 @@
 "use client";
 
 import { usePlayback } from "@/context/PlaybackContext";
-import { QUALITY_OPTIONS, ROOT_OPTIONS } from "@/lib/chordPalette";
+import { QUALITY_OPTIONS } from "@/lib/chordPalette";
 import { PROGRESSION_PRESETS } from "@/lib/presets";
+import { CircleOfFifths } from "./CircleOfFifths";
 import styles from "./ChordPalette.module.css";
 
 export function ChordPalette() {
   const {
     progressionText,
     invalidTokens,
-    selectedRootPitchClass,
     selectedRootName,
-    selectRoot,
     addChord,
     applyPreset,
     removeLastChord,
@@ -32,19 +31,8 @@ export function ChordPalette() {
 
       <div className={styles.grid}>
         <div className={styles.section}>
-          <span className={styles.eyebrow}>Raíz</span>
-          <div className={styles.rootGrid}>
-            {ROOT_OPTIONS.map((root) => (
-              <button
-                key={root.pitchClass}
-                type="button"
-                className={`${styles.button} ${root.pitchClass === selectedRootPitchClass ? styles.buttonSelected : ""}`}
-                onClick={() => selectRoot(root.pitchClass)}
-              >
-                {root.name}
-              </button>
-            ))}
-          </div>
+          <span className={styles.eyebrow}>Raíz — Círculo de quintas</span>
+          <CircleOfFifths />
         </div>
 
         <div className={styles.section}>

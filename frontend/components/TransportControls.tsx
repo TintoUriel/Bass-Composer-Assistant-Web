@@ -1,7 +1,11 @@
 "use client";
 
 import { usePlayback } from "@/context/PlaybackContext";
+import { Knob } from "./Knob";
 import styles from "./TransportControls.module.css";
+
+const MIN_BPM = 40;
+const MAX_BPM = 400;
 
 export function TransportControls() {
   const {
@@ -60,33 +64,17 @@ export function TransportControls() {
         </div>
       </div>
 
-      <div className={styles.faderGroup}>
-        <span className={styles.eyebrow}>BPM</span>
-        <div className={styles.faderRow}>
-          <input
-            type="range"
-            min={40}
-            max={240}
-            value={bpm}
-            onChange={(event) => setBpm(Number(event.target.value))}
-          />
-          <span className={styles.faderValue}>{bpm}</span>
-        </div>
-      </div>
+      <Knob
+        label="BPM"
+        min={MIN_BPM}
+        max={MAX_BPM}
+        step={1}
+        value={bpm}
+        onChange={setBpm}
+        dragRange={220}
+      />
 
-      <div className={styles.faderGroup}>
-        <span className={styles.eyebrow}>Vol</span>
-        <div className={styles.faderRow}>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={volume}
-            onChange={(event) => setVolume(Number(event.target.value))}
-          />
-          <span className={styles.faderValue}>{volume}</span>
-        </div>
-      </div>
+      <Knob label="Vol" min={0} max={100} step={1} value={volume} onChange={setVolume} />
 
       <button
         type="button"
