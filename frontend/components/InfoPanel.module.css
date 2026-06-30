@@ -1,24 +1,28 @@
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .eyebrow {
-  font-size: 11px;
+  font-size: 10.5px;
   letter-spacing: 1px;
   opacity: 0.6;
   text-transform: uppercase;
 }
 
 .chordName {
-  font-size: 36px;
-  font-weight: bold;
-  margin: 2px 0 4px;
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--amber);
+  margin: 4px 0 6px;
 }
 
 .chordNotes {
-  font-size: 15px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   opacity: 0.8;
 }
 

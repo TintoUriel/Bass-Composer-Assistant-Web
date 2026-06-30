@@ -24,50 +24,52 @@ export default function Home() {
     <PlaybackProvider>
       <div className={styles.page}>
         <header className={styles.header}>
-          <h1>
-            BASS COMPOSER<span className={styles.brandAccent}> · ASSISTANT</span>
+          <h1 className={styles.brand}>
+            BASS COMPOSER<span className={styles.brandAccent}>·ASSISTANT</span>
           </h1>
+          <div className={styles.status} title={`Backend: ${apiStatus}`}>
+            <span
+              className={`${styles.statusLed} ${
+                apiStatus === "ok"
+                  ? styles.statusLedOk
+                  : apiStatus === "error"
+                    ? styles.statusLedError
+                    : ""
+              }`}
+            />
+            <span className={styles.statusLabel}>
+              {apiStatus === "checking" && "Conectando…"}
+              {apiStatus === "ok" && "Backend conectado"}
+              {apiStatus === "error" && "Backend sin conexión"}
+            </span>
+          </div>
         </header>
 
+        <div className={`${styles.panel} ${styles.transportBar}`}>
+          <TransportControls />
+          <div className={styles.transportDivider} />
+          <ModeSelector />
+        </div>
+
         <main className={styles.main}>
-          <div className={styles.center}>
-            <div className={styles.panel}>
-              <ChordPalette />
-            </div>
+          <div className={`${styles.panel} ${styles.paletteColumn}`}>
+            <ChordPalette />
+          </div>
 
-            <div className={styles.panel}>
-              <div className={styles.transportRow}>
-                <TransportControls />
-                <ModeSelector />
-              </div>
-            </div>
-
-            <div className={styles.panel}>
-              <div className={styles.panelRow}>
-                <span className={styles.eyebrow}>Pasos</span>
-                <ProgressionTimeline />
-              </div>
-            </div>
-
-            <span className={styles.sectionLabel}>Mástil</span>
-            <div className={styles.panel}>
+          <div className={styles.centerColumn}>
+            <div className={`${styles.panel} ${styles.fretboardPanel}`}>
               <Fretboard />
+            </div>
+            <div className={`${styles.panel} ${styles.timelinePanel}`}>
+              <span className={styles.eyebrow}>Progresión</span>
+              <ProgressionTimeline />
             </div>
           </div>
 
-          <div className={styles.panel}>
+          <div className={`${styles.panel} ${styles.infoColumn}`}>
             <InfoPanel />
           </div>
         </main>
-
-        <footer className={styles.footer}>
-          <span className={styles.apiStatus}>
-            Backend:{" "}
-            {apiStatus === "checking" && "comprobando..."}
-            {apiStatus === "ok" && "conectado"}
-            {apiStatus === "error" && "sin conexión"}
-          </span>
-        </footer>
       </div>
     </PlaybackProvider>
   );

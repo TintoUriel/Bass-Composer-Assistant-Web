@@ -1,20 +1,23 @@
 .palette {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .display {
-  min-height: 46px;
+  min-height: 40px;
   display: flex;
   align-items: center;
-  padding: 10px 14px;
-  background: var(--groove);
+  padding: 8px 12px;
+  background: var(--panel-recessed);
+  border: 1px solid var(--groove);
   border-radius: 4px;
-  font-family: var(--font-geist-mono);
-  font-size: 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
   color: var(--amber);
   letter-spacing: 1px;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .displayEmpty {
@@ -29,8 +32,8 @@
 
 .grid {
   display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .section {
@@ -40,7 +43,7 @@
 }
 
 .eyebrow {
-  font-size: 11px;
+  font-size: 10.5px;
   letter-spacing: 1px;
   opacity: 0.6;
   text-transform: uppercase;
@@ -48,30 +51,30 @@
 
 .rootGrid {
   display: grid;
-  grid-template-columns: repeat(6, 46px);
+  grid-template-columns: repeat(6, 1fr);
   gap: 3px;
 }
 
 .qualityGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 3px;
-  max-width: 460px;
 }
 
 .button {
-  height: 38px;
-  min-width: 46px;
+  height: 32px;
+  min-width: 0;
   border: 1px solid var(--groove);
   border-radius: 3px;
-  background: #232019;
+  background: var(--panel-recessed);
   color: var(--cream);
-  font-size: 13px;
+  font-size: 12.5px;
   cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
 .button:hover {
-  background: #2c2822;
+  background: #221d17;
 }
 
 .buttonSelected {
@@ -82,20 +85,46 @@
 .actions {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .actionButton {
-  height: 32px;
-  padding: 0 12px;
+  height: 28px;
+  padding: 0 10px;
   border: 1px solid var(--groove);
   border-radius: 3px;
-  background: #232019;
+  background: var(--panel-recessed);
   color: var(--cream);
   font-size: 11px;
   cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
 .actionButton:hover {
-  background: #2c2822;
+  background: #221d17;
+  border-color: var(--amber-dim);
+}
+
+.presetList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.presetButton {
+  text-align: left;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--groove);
+  border-radius: 3px;
+  background: var(--panel-recessed);
+  color: var(--cream);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.presetButton:hover {
+  background: #221d17;
+  border-color: var(--amber-dim);
 }

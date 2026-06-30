@@ -138,13 +138,15 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Reparseo de la progresión en cada cambio de texto (palette-driven, sin debounce porque no
-  // hay un campo de texto libre: cada click agrega/quita un token completo).
+  // hay un campo de texto libre: cada click agrega/quita un token completo). La posición apunta
+  // al último acorde, no al primero: addChord/removeLastChord tocan el final de la progresión, y
+  // es ese el acorde que el usuario espera escuchar al hacer click en la paleta.
   useEffect(() => {
     parseProgression(progressionText).then((result) => {
       setChords(result.chords);
       setInvalidTokens(result.invalidTokens);
       setIsPlaying(false);
-      setPosition(INITIAL_POSITION);
+      setPosition({ ...INITIAL_POSITION, chordIndex: Math.max(result.chords.length - 1, 0) });
     });
   }, [progressionText]);
 

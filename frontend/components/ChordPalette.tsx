@@ -73,12 +73,12 @@ export function ChordPalette() {
 
         <div className={styles.section}>
           <span className={styles.eyebrow}>Presets — Tonalidad {selectedRootName}</span>
-          <div className={styles.qualityGrid}>
+          <div className={styles.presetList}>
             {PROGRESSION_PRESETS.map((preset) => (
               <button
                 key={preset.id}
                 type="button"
-                className={styles.actionButton}
+                className={styles.presetButton}
                 onClick={() => applyPreset(preset.id)}
               >
                 {preset.label}

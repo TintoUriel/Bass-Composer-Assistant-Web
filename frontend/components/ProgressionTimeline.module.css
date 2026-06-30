@@ -1,18 +1,22 @@
 .timeline {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
 }
 
 .step {
+  flex: 0 0 auto;
   padding: 8px 16px;
   border: 1px solid var(--groove);
-  border-radius: 2px;
-  background: #232019;
+  border-radius: 3px;
+  background: var(--panel-recessed);
   color: var(--cream);
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-mono);
   font-size: 14px;
   cursor: pointer;
+  transition: border-color 0.12s ease;
 }
 
 .step:hover {

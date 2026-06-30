@@ -11,7 +11,6 @@ import {
   NUT_MARGIN,
   STRING_AREA_HEIGHT,
   STRING_AREA_TOP,
-  getFretWireX,
   getNoteX,
   getStringY,
 } from "@/lib/fretboardGeometry";
@@ -70,7 +69,7 @@ export function Fretboard() {
         {MARKER_FRETS.map((fret) => (
           <circle
             key={`marker-${fret}`}
-            cx={getFretWireX(fret)}
+            cx={getNoteX(fret)}
             cy={MARKER_CENTER_Y}
             r={5}
             fill="url(#position-marker)"
@@ -81,7 +80,7 @@ export function Fretboard() {
         {MARKER_FRETS.map((fret) => (
           <text
             key={`fretlabel-${fret}`}
-            x={getFretWireX(fret)}
+            x={getNoteX(fret)}
             y={FRET_LABEL_Y}
             className={styles.fretLabel}
           >

@@ -1,13 +1,26 @@
-/* Paleta portada del tema "Studio" del repo desktop (StudioTheme.xaml, commit 8692c71). */
+/* Paleta "Studio" portada del repo desktop (StudioTheme.xaml, commit 8692c71), llevada acá a un
+   panel de hardware: chasis de nogal oscuro, remaches de latón, indicadores LED ámbar. */
 :root {
   --background: #1c1a18;
-  --foreground: #ede6d6;
-  --panel: #312d29;
+  --background-vignette: #221e19;
+  --panel: #2b2620;
+  --panel-recessed: #16130f;
   --groove: #0e0d0c;
   --amber: #ffa721;
   --amber-dim: #8a5e1d;
   --walnut: #bd7340;
   --cream: #ede6d6;
+  --brass-hi: #e8c98a;
+  --brass-lo: #6e5128;
+  --led-off: #2a2420;
+  --led-off-ring: #0a0908;
+
+  --font-display: var(--font-bebas-neue);
+  --font-mono: var(--font-geist-mono);
+  --font-body: var(--font-geist-sans);
+
+  --shell-radius: 10px;
+  --rivet: radial-gradient(circle at 35% 30%, var(--brass-hi) 0%, var(--brass-lo) 75%, var(--brass-lo) 100%);
 }
 
 html {
@@ -21,12 +34,12 @@ body {
 }
 
 body {
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--cream);
+  background: radial-gradient(ellipse at top, var(--background-vignette) 0%, var(--background) 70%);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -44,4 +57,39 @@ a {
 
 html {
   color-scheme: dark;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--groove);
+}
+
+/* Riel de scroll fino para los paneles internos (la página en sí no debería necesitar scroll). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--amber-dim) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--amber-dim);
+  border-radius: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

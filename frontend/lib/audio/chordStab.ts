@@ -1,62 +1,54 @@
+import * as Tone from "tone";
 import { getAudioContext } from "./audioContext";
 
-// Portado de NAudioChordSoundPlayer (repo desktop, commit 8692c71): síntesis aditiva de 6
-// armónicos por nota, cada uno más débil y de decay más rápido cuanto más alto — el "stab" se
-// recalcula en cada acorde (no se cachea, igual que en NAudio) porque cambia con cada acorde.
-const DURATION_MS = 1800;
-const ATTACK_MS = 8;
-const HARMONIC_COUNT = 6;
-const FIXED_VOLUME = 0.5;
+// Sampler con grabaciones reales de un piano (Salamander Grand Piano, el set de muestras que
+// el propio Tone.js usa en sus ejemplos oficiales) en vez de osciladores sintetizados — un
+// sintetizador nunca va a sonar "como un piano real", una muestra grabada sí.
+const DURATION_S = 1.8;
+const VOLUME_DB = -6;
 
-function midiToFrequencyHz(midiNote: number): number {
-  return 440 * Math.pow(2, (midiNote - 69) / 12);
-}
+let sampler: Tone.Sampler | null = null;
+let loaded: Promise<void> | null = null;
 
-function pianoNote(frequencyHz: number, t: number): number {
-  let sample = 0;
+function getSampler(): { sampler: Tone.Sampler; ready: Promise<void> } {
+  if (!sampler) {
+    Tone.setContext(getAudioContext());
+    let resolveLoaded!: () => void;
+    loaded = new Promise<void>((resolve) => (resolveLoaded = resolve));
 
-  for (let harmonic = 1; harmonic <= HARMONIC_COUNT; harmonic++) {
-    const amplitude = 1 / Math.pow(harmonic, 1.5);
-    const decayRate = 0.8 + 0.35 * (harmonic - 1);
-    sample += amplitude * Math.sin(2 * Math.PI * frequencyHz * harmonic * t) * Math.exp(-decayRate * t);
+    const newSampler = new Tone.Sampler({
+      urls: {
+        A0: "A0.mp3", C1: "C1.mp3", "D#1": "Ds1.mp3", "F#1": "Fs1.mp3",
+        A1: "A1.mp3", C2: "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3",
+        A2: "A2.mp3", C3: "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3",
+        A3: "A3.mp3", C4: "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3",
+        A4: "A4.mp3", C5: "C5.mp3", "D#5": "Ds5.mp3", "F#5": "Fs5.mp3",
+        A5: "A5.mp3", C6: "C6.mp3", "D#6": "Ds6.mp3", "F#6": "Fs6.mp3",
+        A6: "A6.mp3", C7: "C7.mp3", "D#7": "Ds7.mp3", "F#7": "Fs7.mp3",
+        A7: "A7.mp3", C8: "C8.mp3",
+      },
+      release: 1,
+      baseUrl: "https://tonejs.github.io/audio/salamander/",
+      onload: resolveLoaded,
+    }).toDestination();
+    newSampler.volume.value = VOLUME_DB;
+
+    sampler = newSampler;
   }
 
-  return sample;
+  return { sampler, ready: loaded! };
 }
 
-function buildChordBuffer(ctx: AudioContext, midiNotes: readonly number[]): AudioBuffer {
-  const sampleCount = Math.floor((ctx.sampleRate * DURATION_MS) / 1000);
-  const attackSamples = Math.floor((ctx.sampleRate * ATTACK_MS) / 1000);
-  const buffer = ctx.createBuffer(1, sampleCount, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  const gain = 1 / midiNotes.length;
-  const frequenciesHz = midiNotes.map(midiToFrequencyHz);
-
-  for (let i = 0; i < sampleCount; i++) {
-    const t = i / ctx.sampleRate;
-    const attackEnvelope = i < attackSamples ? i / attackSamples : 1;
-
-    let sample = 0;
-    for (const frequencyHz of frequenciesHz) sample += pianoNote(frequencyHz, t);
-
-    data[i] = sample * gain * attackEnvelope;
-  }
-
-  return buffer;
+function midiToNoteName(midiNote: number): string {
+  return Tone.Frequency(midiNote, "midi").toNote();
 }
 
 export function playChordStab(midiNotes: readonly number[]): void {
   if (midiNotes.length === 0) return;
 
-  const ctx = getAudioContext();
-  const buffer = buildChordBuffer(ctx, midiNotes);
+  const { sampler, ready } = getSampler();
+  const notes = midiNotes.map(midiToNoteName);
 
-  const source = ctx.createBufferSource();
-  source.buffer = buffer;
-
-  const gain = ctx.createGain();
-  gain.gain.value = FIXED_VOLUME;
-
-  source.connect(gain).connect(ctx.destination);
-  source.start();
+  if (sampler.loaded) sampler.triggerAttackRelease(notes, DURATION_S);
+  else ready.then(() => sampler.triggerAttackRelease(notes, DURATION_S));
 }

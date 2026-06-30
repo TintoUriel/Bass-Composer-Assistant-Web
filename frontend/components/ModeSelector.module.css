@@ -22,7 +22,7 @@
   padding: 0 14px;
   border: 1px solid var(--groove);
   border-radius: 3px;
-  background: #232019;
+  background: var(--panel-recessed);
   color: #999;
   font-size: 12px;
   letter-spacing: 0.5px;

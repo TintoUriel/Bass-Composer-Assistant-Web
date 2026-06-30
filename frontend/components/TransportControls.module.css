@@ -15,7 +15,7 @@
   height: 38px;
   border: 1px solid var(--groove);
   border-radius: 3px;
-  background: #232019;
+  background: var(--panel-recessed);
   color: var(--cream);
   font-size: 16px;
   cursor: pointer;
@@ -51,7 +51,7 @@
 
 .faderValue {
   width: 32px;
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-mono);
   color: var(--amber);
   font-weight: bold;
   font-size: 14px;
@@ -91,7 +91,7 @@
   padding: 0 12px;
   border: 1px solid var(--groove);
   border-radius: 3px;
-  background: #232019;
+  background: var(--panel-recessed);
   color: #999;
   font-size: 11px;
   letter-spacing: 0.5px;
