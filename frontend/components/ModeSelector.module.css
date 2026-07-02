@@ -23,7 +23,7 @@
   border: 1px solid var(--groove);
   border-radius: 6px;
   background: var(--panel-recessed);
-  color: #999;
+  color: var(--switch-label);
   font-size: 12px;
   letter-spacing: 0.5px;
   cursor: pointer;

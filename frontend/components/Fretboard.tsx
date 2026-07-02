@@ -31,14 +31,15 @@ export function Fretboard() {
         aria-label="Diapasón"
       >
         <defs>
+          {/* Diapasón de ébano: casi negro, frío, para integrarse al chasis de grafito. */}
           <linearGradient id="neck-wood" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#3b2a1c" />
-            <stop offset="0.5" stopColor="#2a1d13" />
-            <stop offset="1" stopColor="#231809" />
+            <stop offset="0" stopColor="#26292c" />
+            <stop offset="0.5" stopColor="#1a1c1e" />
+            <stop offset="1" stopColor="#141618" />
           </linearGradient>
           <radialGradient id="position-marker" cx="0.35" cy="0.35" r="0.8">
-            <stop offset="0" stopColor="#fbf6ea" />
-            <stop offset="1" stopColor="#cfc2a0" />
+            <stop offset="0" stopColor="#dfe3e6" />
+            <stop offset="1" stopColor="#a9afb4" />
           </radialGradient>
         </defs>
 
@@ -50,7 +51,7 @@ export function Fretboard() {
           y={STRING_AREA_TOP}
           width={6}
           height={STRING_AREA_HEIGHT}
-          fill="#ede6d6"
+          fill="#c9ced2"
         />
 
         {/* Trastes */}
@@ -61,7 +62,7 @@ export function Fretboard() {
             y={STRING_AREA_TOP}
             width={2}
             height={STRING_AREA_HEIGHT}
-            fill="#c9c2b6"
+            fill="#767c82"
           />
         ))}
 
@@ -96,7 +97,7 @@ export function Fretboard() {
             x2={NECK_WIDTH}
             y1={getStringY(stringNumber)}
             y2={getStringY(stringNumber)}
-            stroke="#d7c9a8"
+            stroke="#9aa0a6"
             strokeWidth={2}
           />
         ))}
@@ -110,7 +111,7 @@ export function Fretboard() {
 
           return (
             <g key={`${position.stringNumber}-${position.fret}`}>
-              <circle cx={cx} cy={cy} r={10} fill="#5a4632" opacity={0.65} />
+              <circle cx={cx} cy={cy} r={10} fill="#3a3f43" opacity={0.65} />
               <text x={cx} y={cy} className={styles.noteLabel}>
                 {position.note.name}
               </text>

@@ -1,26 +1,33 @@
-/* Paleta "Studio" portada del repo desktop (StudioTheme.xaml, commit 8692c71), llevada acá a un
-   panel de hardware: chasis de nogal oscuro, remaches de latón, indicadores LED ámbar. */
+/* Estética "Studio Console" — instrumento de estudio de gama alta (tipo Universal Audio
+   Apollo / canal de consola Neve): grafito mate, bordes de línea de pelo, tipografía técnica
+   y un único acento ámbar reservado a estados encendidos y a la pantalla de lectura. Sin oro,
+   sin cromo brillante, sin texturas: la seriedad viene de la precisión, no de la decoración.
+   Los nombres de token se conservan para que los componentes hijos hereden el cambio. */
 :root {
-  --background: #1c1a18;
-  --background-vignette: #221e19;
-  --panel: #2b2620;
-  --panel-recessed: #16130f;
-  --groove: #0e0d0c;
-  --amber: #ffa721;
-  --amber-dim: #8a5e1d;
-  --walnut: #bd7340;
-  --cream: #ede6d6;
-  --brass-hi: #e8c98a;
-  --brass-lo: #6e5128;
-  --led-off: #2a2420;
-  --led-off-ring: #0a0908;
+  --background: #0d0e0f;
+  --background-vignette: #131517;
+
+  --panel: #16181a;
+  --panel-recessed: #0a0b0c;
+  --groove: #262a2e;
+
+  --amber: #eaa23c;
+  --amber-dim: #7d6a41;
+  --cream: #d6dade;
+  --switch-label: #7b8288;
+
+  /* Metal maquinado neutro para el bisel de las perillas (mate, no cromo). */
+  --steel-hi: #7c8288;
+  --steel-lo: #23272a;
+
+  --led-off: #1a1d1f;
+  --led-off-ring: #050607;
 
   --font-display: var(--font-bebas-neue);
   --font-mono: var(--font-geist-mono);
   --font-body: var(--font-geist-sans);
 
-  --shell-radius: 10px;
-  --rivet: radial-gradient(circle at 35% 30%, var(--brass-hi) 0%, var(--brass-lo) 75%, var(--brass-lo) 100%);
+  --shell-radius: 8px;
 }
 
 html {
@@ -38,7 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   color: var(--cream);
-  background: radial-gradient(ellipse at top, var(--background-vignette) 0%, var(--background) 70%);
+  background: radial-gradient(ellipse at top, var(--background-vignette) 0%, var(--background) 72%);
   font-family: var(--font-body), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

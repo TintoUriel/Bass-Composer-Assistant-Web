@@ -5,7 +5,21 @@ import styles from "./Knob.module.css";
 
 const START_ANGLE = -135;
 const SWEEP = 270;
-const BODY_RADIUS = 32;
+const BODY_RADIUS = 27;
+const ARC_RADIUS = 40;
+
+/** Punto sobre el dial: ángulo 0 = arriba, sentido horario positivo (igual que la aguja). */
+function pointOnDial(angleDeg: number, radius: number) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: 50 + radius * Math.sin(rad), y: 50 - radius * Math.cos(rad) };
+}
+
+function describeArc(startAngle: number, endAngle: number, radius: number) {
+  const start = pointOnDial(startAngle, radius);
+  const end = pointOnDial(endAngle, radius);
+  const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+  return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+}
 
 interface KnobProps {
   label: string;
@@ -108,6 +122,8 @@ export function Knob({
 
   const fraction = (clamp(value) - min) / (max - min);
   const angle = START_ANGLE + fraction * SWEEP;
+  // Un arco de longitud ~0 no se dibuja: aseguramos un mínimo visible cuando hay algo de valor.
+  const valueEndAngle = fraction > 0 ? angle : START_ANGLE;
 
   return (
     <div className={styles.knobControl} style={{ width: size }}>
@@ -128,22 +144,46 @@ export function Knob({
       >
         <svg viewBox="0 0 100 100" className={styles.dialSvg}>
           <defs>
-            <radialGradient id={gradientId} cx="35%" cy="28%" r="75%">
-              <stop offset="0%" stopColor="#2c2c2c" />
-              <stop offset="55%" stopColor="#161616" />
-              <stop offset="100%" stopColor="#050505" />
+            {/* Tapa de aluminio anodizado oscuro, con luz cenital tenue. */}
+            <radialGradient id={`${gradientId}-cap`} cx="38%" cy="26%" r="82%">
+              <stop offset="0%" stopColor="#2c3034" />
+              <stop offset="55%" stopColor="#171a1c" />
+              <stop offset="100%" stopColor="#0a0c0d" />
             </radialGradient>
+            {/* Bisel de metal maquinado mate: reflejo sutil, sin brillo de cromo. */}
+            <linearGradient id={`${gradientId}-chrome`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#767c82" />
+              <stop offset="45%" stopColor="#31363a" />
+              <stop offset="100%" stopColor="#5a6066" />
+            </linearGradient>
           </defs>
-          <circle cx={50} cy={50} r={BODY_RADIUS} fill={`url(#${gradientId})`} />
+
+          {/* Riel de fondo con la extensión total del recorrido */}
+          <path
+            d={describeArc(START_ANGLE, START_ANGLE + SWEEP, ARC_RADIUS)}
+            className={styles.arcTrack}
+          />
+          {/* Arco de nivel: crece con el valor (indicador retroiluminado ámbar) */}
+          <path d={describeArc(START_ANGLE, valueEndAngle, ARC_RADIUS)} className={styles.arcValue} />
+
+          {/* Bisel cromado + tapa de la perilla */}
+          <circle
+            cx={50}
+            cy={50}
+            r={BODY_RADIUS + 2.5}
+            fill={`url(#${gradientId}-chrome)`}
+            className={styles.bezel}
+          />
+          <circle cx={50} cy={50} r={BODY_RADIUS} fill={`url(#${gradientId}-cap)`} className={styles.cap} />
+
+          {/* Aguja indicadora blanca */}
           <g transform={`rotate(${angle} 50 50)`}>
             <line
               x1={50}
-              y1={36}
+              y1={50 - BODY_RADIUS + 2}
               x2={50}
-              y2={16}
-              stroke="#f1ecdf"
-              strokeWidth={4}
-              strokeLinecap="round"
+              y2={50 - BODY_RADIUS + 13}
+              className={styles.pointer}
             />
           </g>
         </svg>
