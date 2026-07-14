@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ChordPalette } from "@/components/ChordPalette";
 import { Fretboard } from "@/components/Fretboard";
 import { InfoPanel } from "@/components/InfoPanel";
+import { InstrumentToggle } from "@/components/InstrumentToggle";
 import { ModeSelector } from "@/components/ModeSelector";
 import { ProgressionTimeline } from "@/components/ProgressionTimeline";
 import { TransportControls } from "@/components/TransportControls";
@@ -49,6 +50,8 @@ export default function Home() {
           <TransportControls />
           <div className={styles.transportDivider} />
           <ModeSelector />
+          <div className={styles.transportDivider} />
+          <InstrumentToggle />
         </div>
 
         <main className={styles.main}>

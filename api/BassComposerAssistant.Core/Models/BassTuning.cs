@@ -23,4 +23,12 @@ public sealed record BassTuning(string Name, IReadOnlyList<int> OpenStringMidiNo
     public static BassTuning Standard6String { get; } = new(
         "Bajo 6 cuerdas (B-E-A-D-G-C)",
         new[] { 48, 43, 38, 33, 28, 23 });
+
+    /// <summary>
+    /// Standard 6-string guitar: string 1 = E4, 2 = B3, 3 = G3, 4 = D3, 5 = A2, 6 = E2.
+    /// El record es genérico sobre la cantidad de cuerdas, así que una guitarra es solo otro preset.
+    /// </summary>
+    public static BassTuning Guitar { get; } = new(
+        "Guitarra (E-A-D-G-B-E)",
+        new[] { 64, 59, 55, 50, 45, 40 });
 }

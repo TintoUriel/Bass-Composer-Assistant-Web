@@ -53,8 +53,13 @@ app.MapGet("/api/scales/build", (int root, ScaleType type, IScaleService scaleSe
     return scaleService.BuildScale(rootNote, type).ToDto();
 });
 
-app.MapGet("/api/fretboard", (int? fretCount) =>
-    new FretboardGridResponse(FretboardGridBuilder.Build(BassTuning.Standard4String, fretCount ?? 24)));
+app.MapGet("/api/fretboard", (int? fretCount, string? instrument) =>
+{
+    var tuning = string.Equals(instrument, "guitar", StringComparison.OrdinalIgnoreCase)
+        ? BassTuning.Guitar
+        : BassTuning.Standard4String;
+    return new FretboardGridResponse(FretboardGridBuilder.Build(tuning, fretCount ?? 24));
+});
 
 app.MapPost("/api/highlights/chord", (ChordSymbolRequest request, IChordParserService parser, IFretboardHighlightService highlights) =>
 {

@@ -2,6 +2,7 @@ import type {
   FretboardGridResponse,
   HighlightMapResponse,
   HighlightType,
+  Instrument,
   ParseProgressionResponse,
 } from "./types";
 
@@ -24,8 +25,13 @@ export async function parseProgression(text: string): Promise<ParseProgressionRe
   return response.json();
 }
 
-export async function fetchFretboard(fretCount = 24): Promise<FretboardGridResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/fretboard?fretCount=${fretCount}`);
+export async function fetchFretboard(
+  fretCount = 24,
+  instrument: Instrument = "bass",
+): Promise<FretboardGridResponse> {
+  const response = await fetch(
+    `${API_BASE_URL}/api/fretboard?fretCount=${fretCount}&instrument=${instrument}`,
+  );
   if (!response.ok) throw new Error(`Failed to fetch fretboard: ${response.status}`);
   return response.json();
 }

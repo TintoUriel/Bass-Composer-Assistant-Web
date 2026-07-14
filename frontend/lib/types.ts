@@ -1,5 +1,7 @@
 export type VisualizationMode = "Chord" | "Scale" | "CommonTones" | "Triads";
 
+export type Instrument = "bass" | "guitar";
+
 export type HighlightType =
   | "None"
   | "ChordRoot"

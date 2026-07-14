@@ -2,22 +2,20 @@
 
 import { usePlayback } from "@/context/PlaybackContext";
 import {
-  FRET_LABEL_Y,
   INTERIOR_FRET_WIRE_X_POSITIONS,
-  MARKER_CENTER_Y,
   MARKER_FRETS,
-  NECK_HEIGHT,
   NECK_WIDTH,
   NUT_MARGIN,
-  STRING_AREA_HEIGHT,
   STRING_AREA_TOP,
+  getFretLabelY,
+  getMarkerCenterY,
+  getNeckHeight,
   getNoteX,
+  getStringAreaHeight,
   getStringY,
 } from "@/lib/fretboardGeometry";
 import { highlightColors } from "@/lib/highlightColors";
 import styles from "./Fretboard.module.css";
-
-const STRING_NUMBERS = [1, 2, 3, 4];
 
 /** Texto oscuro sobre dots claros (dorado/coral), blanco sobre los oscuros (escala). */
 function labelColorFor(hex: string): string {
@@ -32,12 +30,24 @@ function labelColorFor(hex: string): string {
 export function Fretboard() {
   const { fretboardPositions, highlights } = usePlayback();
 
+  // La cantidad de cuerdas viene del grid que devuelve la API (bajo = 4, guitarra = 6). Todo el
+  // layout vertical se deriva de acá, así que el mismo SVG sirve para cualquier afinación.
+  const stringCount =
+    fretboardPositions.length > 0
+      ? Math.max(...fretboardPositions.map((position) => position.stringNumber))
+      : 4;
+  const stringNumbers = Array.from({ length: stringCount }, (_, index) => index + 1);
+  const neckHeight = getNeckHeight(stringCount);
+  const stringAreaHeight = getStringAreaHeight(stringCount);
+  const markerCenterY = getMarkerCenterY(stringCount);
+  const fretLabelY = getFretLabelY(stringCount);
+
   return (
     <div className={styles.board}>
       <div className={styles.wrapper}>
         <svg
           className={styles.svg}
-          viewBox={`0 0 ${NECK_WIDTH} ${NECK_HEIGHT}`}
+          viewBox={`0 0 ${NECK_WIDTH} ${neckHeight}`}
           role="img"
           aria-label="Diapasón"
         >
@@ -54,14 +64,14 @@ export function Fretboard() {
             </radialGradient>
           </defs>
 
-          <rect width={NECK_WIDTH} height={NECK_HEIGHT} fill="url(#neck-wood)" rx={6} />
+          <rect width={NECK_WIDTH} height={neckHeight} fill="url(#neck-wood)" rx={6} />
 
           {/* Cejilla */}
           <rect
             x={NUT_MARGIN}
             y={STRING_AREA_TOP}
             width={6}
-            height={STRING_AREA_HEIGHT}
+            height={stringAreaHeight}
             fill="#efe9db"
           />
 
@@ -72,7 +82,7 @@ export function Fretboard() {
               x={x - 1}
               y={STRING_AREA_TOP}
               width={2}
-              height={STRING_AREA_HEIGHT}
+              height={stringAreaHeight}
               fill="rgba(60,50,42,0.85)"
             />
           ))}
@@ -82,7 +92,7 @@ export function Fretboard() {
             <circle
               key={`marker-${fret}`}
               cx={getNoteX(fret)}
-              cy={MARKER_CENTER_Y}
+              cy={markerCenterY}
               r={5}
               fill="url(#position-marker)"
             />
@@ -93,7 +103,7 @@ export function Fretboard() {
             <text
               key={`fretlabel-${fret}`}
               x={getNoteX(fret)}
-              y={FRET_LABEL_Y}
+              y={fretLabelY}
               className={styles.fretLabel}
             >
               {fret}
@@ -101,7 +111,7 @@ export function Fretboard() {
           ))}
 
           {/* Cuerdas */}
-          {STRING_NUMBERS.map((stringNumber) => (
+          {stringNumbers.map((stringNumber) => (
             <line
               key={`string-${stringNumber}`}
               x1={NUT_MARGIN}

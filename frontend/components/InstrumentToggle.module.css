@@ -1,0 +1,142 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--switch-label);
+  text-transform: uppercase;
+}
+
+.toggle {
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggle:active {
+  transform: translateY(1px);
+}
+
+/* Placa vertical del interruptor: mitad superior "encendido" (roja), inferior "apagado" (negra),
+   como el frente de un toggle de amplificador. */
+.faceplate {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 62px;
+  height: 104px;
+  padding: 9px 0;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #b5271d 0%, #8e1c15 49%, #16110d 49%, #0c0a08 100%);
+  border: 1px solid #05040300;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 3px 8px rgba(0, 0, 0, 0.55);
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 245, 235, 0.72);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.labelOn {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* Bisel cromado central donde pivota la palanca (la tuerca hexagonal del switch). */
+.bezel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, #f4f0e8 0%, #cfc7b8 40%, #8f877a 72%, #4c463c 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.45),
+    0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* Anillo interior hundido del bisel. */
+.bezel::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, #cbc2b2, #6f685c);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.55);
+}
+
+/* Bat-handle cromado. Pivota desde el centro del bisel: hacia arriba = Bajo, abajo = Guitarra. */
+.lever {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 15px;
+  height: 34px;
+  margin-left: -7.5px;
+  transform-origin: 50% 100%;
+  z-index: 3;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.leverUp {
+  transform: rotate(0deg);
+}
+
+.leverDown {
+  transform: rotate(180deg);
+}
+
+/* Cuerpo del vástago metálico, con brillo cromado vertical. */
+.lever::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 13px;
+  height: 30px;
+  margin-left: -6.5px;
+  border-radius: 6px 6px 4px 4px;
+  background: linear-gradient(90deg, #3f3a33 0%, #a49a8a 30%, #f2ede3 50%, #948b7d 72%, #322e28 100%);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Punta esférica brillante de la palanca. */
+.leverTip {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #fffdf8, #d3cabb 44%, #7c7468 100%);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.75);
+}

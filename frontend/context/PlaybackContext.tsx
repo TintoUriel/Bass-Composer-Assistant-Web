@@ -20,7 +20,13 @@ import {
 } from "@/lib/api";
 import { ROOT_OPTIONS } from "@/lib/chordPalette";
 import { PROGRESSION_PRESETS } from "@/lib/presets";
-import type { ChordDto, FretPositionDto, HighlightType, VisualizationMode } from "@/lib/types";
+import type {
+  ChordDto,
+  FretPositionDto,
+  HighlightType,
+  Instrument,
+  VisualizationMode,
+} from "@/lib/types";
 import { usePlaybackClock } from "@/hooks/usePlaybackClock";
 import { getAudioContext } from "@/lib/audio/audioContext";
 import { playChordStab } from "@/lib/audio/chordStab";
@@ -54,6 +60,7 @@ interface PlaybackContextValue {
 
   isPlaying: boolean;
   selectedMode: VisualizationMode;
+  instrument: Instrument;
   beatsPerMeasure: number;
   currentBeat: number;
   currentMeasure: number;
@@ -78,6 +85,7 @@ interface PlaybackContextValue {
   setMetronomeMuted: (muted: boolean) => void;
   setChordSoundEnabled: (enabled: boolean) => void;
   setSelectedMode: (mode: VisualizationMode) => void;
+  setInstrument: (instrument: Instrument) => void;
 }
 
 const PlaybackContext = createContext<PlaybackContextValue | null>(null);
@@ -96,6 +104,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedMode, setSelectedMode] = useState<VisualizationMode>("Chord");
+  const [instrument, setInstrument] = useState<Instrument>("bass");
   const [position, setPosition] = useState<PlaybackPosition>(INITIAL_POSITION);
 
   const [fretboardPositions, setFretboardPositions] = useState<FretPositionDto[]>([]);
@@ -132,10 +141,11 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
   const selectedRootName =
     ROOT_OPTIONS.find((option) => option.pitchClass === selectedRootPitchClass)?.name ?? "C";
 
-  // Carga el grid del diapasón una sola vez: es estático para una afinación/cantidad de trastes fija.
+  // Recarga el grid del diapasón cuando cambia el instrumento: es estático para una afinación dada
+  // (bajo de 4 cuerdas o guitarra de 6), pero cambia de cantidad/rango de cuerdas entre ambos.
   useEffect(() => {
-    fetchFretboard(24).then((response) => setFretboardPositions(response.positions));
-  }, []);
+    fetchFretboard(24, instrument).then((response) => setFretboardPositions(response.positions));
+  }, [instrument]);
 
   // Reparseo de la progresión en cada cambio de texto (palette-driven, sin debounce porque no
   // hay un campo de texto libre: cada click agrega/quita un token completo). La posición apunta
@@ -295,6 +305,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
 
       isPlaying,
       selectedMode,
+      instrument,
       beatsPerMeasure: BEATS_PER_MEASURE,
       currentBeat: position.beat,
       currentMeasure: position.measure,
@@ -319,6 +330,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       setMetronomeMuted,
       setChordSoundEnabled,
       setSelectedMode,
+      setInstrument,
     }),
     [
       progressionText,
@@ -332,6 +344,7 @@ export function PlaybackProvider({ children }: { children: ReactNode }) {
       isChordSoundEnabled,
       isPlaying,
       selectedMode,
+      instrument,
       position,
       currentChord,
       nextChord,
