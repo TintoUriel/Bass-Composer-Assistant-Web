@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Geist, Geist_Mono } from "next/font/google";
+import { Barlow_Semi_Condensed, JetBrains_Mono, Oswald } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const barlow = Barlow_Semi_Condensed({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas-neue",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable}`}>
+    <html
+      lang="es"
+      className={`${oswald.variable} ${barlow.variable} ${jetbrainsMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

@@ -31,7 +31,7 @@ export function TransportControls() {
       <div className={styles.buttons}>
         <button
           type="button"
-          className={styles.transportButton}
+          className={`${styles.transportButton} ${styles.transportButtonPlay}`}
           title="Play"
           disabled={isPlaying || chords.length === 0}
           onClick={play}

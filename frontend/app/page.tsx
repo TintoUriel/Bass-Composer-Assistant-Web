@@ -25,7 +25,7 @@ export default function Home() {
       <div className={styles.page}>
         <header className={styles.header}>
           <h1 className={styles.brand}>
-            BASS COMPOSER<span className={styles.brandAccent}>·ASSISTANT</span>
+            BASS COMPOSER<span className={styles.brandAccent}>ASSISTANT</span>
           </h1>
           <div className={styles.status} title={`Backend: ${apiStatus}`}>
             <span
@@ -60,14 +60,14 @@ export default function Home() {
             <div className={`${styles.panel} ${styles.fretboardPanel}`}>
               <Fretboard />
             </div>
-            <div className={`${styles.panel} ${styles.timelinePanel}`}>
-              <span className={styles.eyebrow}>Progresión</span>
-              <ProgressionTimeline />
+            <div className={`${styles.panel} ${styles.infoStrip}`}>
+              <div className={styles.progBlock}>
+                <span className={styles.eyebrow}>Progresión</span>
+                <ProgressionTimeline />
+              </div>
+              <div className={styles.stripDivider} />
+              <InfoPanel />
             </div>
-          </div>
-
-          <div className={`${styles.panel} ${styles.infoColumn}`}>
-            <InfoPanel />
           </div>
         </main>
       </div>

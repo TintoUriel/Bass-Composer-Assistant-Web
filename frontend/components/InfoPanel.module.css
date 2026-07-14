@@ -1,52 +1,95 @@
 .panel {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  gap: 22px;
+  flex: 1;
+  min-width: 0;
 }
 
 .eyebrow {
-  font-size: 10.5px;
-  letter-spacing: 1px;
-  opacity: 0.6;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--switch-label);
   text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.chordBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chordRow {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .chordName {
   font-family: var(--font-display);
-  font-size: 44px;
-  line-height: 1;
-  letter-spacing: 1px;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 0.85;
   color: var(--amber);
-  margin: 4px 0 6px;
+  text-shadow: 0 0 22px rgba(240, 165, 47, 0.4);
 }
 
 .chordNotes {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  opacity: 0.8;
+  display: flex;
+  gap: 6px;
 }
 
-.row {
+.noteChip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #cabfad;
+  padding: 4px 9px;
+  border-radius: 5px;
+  background: var(--panel-recessed);
+  border: 1px solid rgba(255, 236, 200, 0.08);
+}
+
+.divider {
+  align-self: stretch;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 236, 200, 0.12), transparent);
+}
+
+.counters {
   display: flex;
-  gap: 32px;
+  gap: 26px;
+  margin-left: auto;
+}
+
+.counter {
+  min-width: 0;
 }
 
 .value {
-  font-size: 20px;
+  font-family: var(--font-display);
   font-weight: 600;
+  font-size: 22px;
+  color: var(--cream-2);
 }
 
-.scaleName {
+.valueSub {
+  font-size: 14px;
+  color: var(--switch-label);
+}
+
+.valueMuted {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--switch-label);
+}
+
+.valueScale {
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 18px;
-  font-weight: 600;
-}
-
-.scaleNotes {
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.nextChord {
-  font-size: 20px;
-  font-weight: 600;
+  color: var(--cream-2);
 }

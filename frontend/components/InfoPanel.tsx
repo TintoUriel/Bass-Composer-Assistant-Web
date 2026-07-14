@@ -17,45 +17,48 @@ export function InfoPanel() {
 
   return (
     <div className={styles.panel}>
-      <div>
+      <div className={styles.chordBlock}>
         <span className={styles.eyebrow}>Acorde actual</span>
-        <div className={styles.chordName}>{currentChord?.name ?? "-"}</div>
-        <div className={styles.chordNotes}>
-          {currentChord ? currentChord.notes.map((tone) => tone.note.name).join(" ") : ""}
+        <div className={styles.chordRow}>
+          <div className={styles.chordName}>{currentChord?.name ?? "-"}</div>
+          <div className={styles.chordNotes}>
+            {currentChord?.notes.map((tone) => (
+              <span key={tone.note.name} className={styles.noteChip}>
+                {tone.note.name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className={styles.row}>
-        <div>
+      <div className={styles.divider} />
+
+      <div className={styles.counters}>
+        <div className={styles.counter}>
           <span className={styles.eyebrow}>Compás</span>
           <div className={styles.value}>{currentMeasure}</div>
         </div>
-        <div>
+        <div className={styles.counter}>
           <span className={styles.eyebrow}>Tiempo</span>
           <div className={styles.value}>
-            {currentBeat} de {beatsPerMeasure}
+            {currentBeat} <span className={styles.valueSub}>de {beatsPerMeasure}</span>
           </div>
         </div>
-      </div>
-
-      <div>
-        <span className={styles.eyebrow}>Modo actual</span>
-        <div className={styles.value}>{MODE_LABELS[selectedMode]}</div>
-      </div>
-
-      {selectedMode === "Scale" && currentChord && (
-        <div>
-          <span className={styles.eyebrow}>Escala actual</span>
-          <div className={styles.scaleName}>{currentChord.suggestedScale.name}</div>
-          <div className={styles.scaleNotes}>
-            {currentChord.suggestedScale.notes.map((tone) => tone.note.name).join(" ")}
-          </div>
+        <div className={styles.counter}>
+          <span className={styles.eyebrow}>Modo</span>
+          <div className={styles.value}>{MODE_LABELS[selectedMode]}</div>
         </div>
-      )}
-
-      <div>
-        <span className={styles.eyebrow}>Próximo acorde</span>
-        <div className={styles.nextChord}>{nextChord?.name ?? "-"}</div>
+        {selectedMode === "Scale" && currentChord ? (
+          <div className={styles.counter}>
+            <span className={styles.eyebrow}>Escala</span>
+            <div className={styles.valueScale}>{currentChord.suggestedScale.name}</div>
+          </div>
+        ) : (
+          <div className={styles.counter}>
+            <span className={styles.eyebrow}>Próximo</span>
+            <div className={styles.valueMuted}>{nextChord?.name ?? "-"}</div>
+          </div>
+        )}
       </div>
     </div>
   );

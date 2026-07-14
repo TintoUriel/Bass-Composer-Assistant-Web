@@ -1,46 +1,47 @@
 .timeline {
   display: flex;
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: 9px;
   overflow-x: auto;
   padding-bottom: 2px;
 }
 
 .step {
   flex: 0 0 auto;
-  padding: 8px 16px;
-  border: 1px solid var(--groove);
-  border-radius: 5px;
-  background: var(--panel-recessed);
-  color: var(--cream);
-  font-family: var(--font-mono);
-  font-size: 14px;
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #2a241c, #181310);
+  color: #cabfad;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
   cursor: pointer;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.4);
-  transition: border-color 0.12s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 236, 200, 0.06);
+  transition: border-color 0.12s ease, color 0.12s ease;
 }
 
 .step:hover {
   border-color: var(--amber-dim);
+  color: #f7c268;
 }
 
 .step:active {
   transform: translateY(1px);
 }
 
-.stepCurrent {
-  background: var(--amber);
-  color: var(--groove);
-  font-weight: bold;
+.stepCurrent,
+.stepCurrent:hover {
+  color: var(--on-accent);
+  background: linear-gradient(180deg, var(--gold-light), var(--amber));
+  border-color: #c47d15;
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.35),
-    0 0 8px 1px rgba(255, 167, 33, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 3px 8px rgba(240, 165, 47, 0.35);
 }
 
 .empty {
-  opacity: 0.5;
+  font-family: var(--font-mono);
   font-size: 13px;
+  color: var(--switch-label);
 }

@@ -6,10 +6,11 @@
 }
 
 .label {
-  font-size: 10.5px;
-  letter-spacing: 1.5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.6;
+  color: var(--switch-label);
 }
 
 .dialWrapper {
@@ -62,9 +63,10 @@
 }
 
 .pointer {
-  stroke: #cfd4d8;
+  stroke: var(--gold-bright);
   stroke-width: 3.5;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(240, 165, 47, 0.9));
 }
 
 .dialWrapperActive .arcValue {
@@ -73,8 +75,9 @@
 
 .value {
   font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--amber);
   letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(240, 165, 47, 0.5);
 }

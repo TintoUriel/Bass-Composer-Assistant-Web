@@ -144,17 +144,17 @@ export function Knob({
       >
         <svg viewBox="0 0 100 100" className={styles.dialSvg}>
           <defs>
-            {/* Tapa de aluminio anodizado oscuro, con luz cenital tenue. */}
-            <radialGradient id={`${gradientId}-cap`} cx="38%" cy="26%" r="82%">
-              <stop offset="0%" stopColor="#2c3034" />
-              <stop offset="55%" stopColor="#171a1c" />
-              <stop offset="100%" stopColor="#0a0c0d" />
+            {/* Tapa de la perilla: metal cálido oscuro con luz cenital tenue. */}
+            <radialGradient id={`${gradientId}-cap`} cx="38%" cy="30%" r="82%">
+              <stop offset="0%" stopColor="#4c463d" />
+              <stop offset="72%" stopColor="#211d18" />
+              <stop offset="100%" stopColor="#141009" />
             </radialGradient>
-            {/* Bisel de metal maquinado mate: reflejo sutil, sin brillo de cromo. */}
+            {/* Bisel de metal maquinado cálido: reflejo sutil. */}
             <linearGradient id={`${gradientId}-chrome`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#767c82" />
-              <stop offset="45%" stopColor="#31363a" />
-              <stop offset="100%" stopColor="#5a6066" />
+              <stop offset="0%" stopColor="#6f6656" />
+              <stop offset="45%" stopColor="#2b261f" />
+              <stop offset="100%" stopColor="#544c3f" />
             </linearGradient>
           </defs>
 

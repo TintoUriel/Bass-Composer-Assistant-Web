@@ -1,74 +1,97 @@
 .palette {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+  height: 100%;
 }
 
+/* Pantalla de lectura: recuadro hundido con barra dorada y texto Oswald dorado. */
 .display {
-  min-height: 40px;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 14px;
   background: var(--panel-recessed);
-  border: 1px solid var(--groove);
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(240, 165, 47, 0.12);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 0.03em;
   color: var(--amber);
-  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(240, 165, 47, 0.35);
   overflow-x: auto;
   white-space: nowrap;
 }
 
+.display::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 3px;
+  height: 20px;
+  border-radius: 2px;
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(240, 165, 47, 0.7);
+}
+
 .displayEmpty {
-  opacity: 0.45;
-  font-size: 13px;
+  color: var(--switch-label);
+  font-size: 16px;
+  text-shadow: none;
 }
 
 .invalidTokens {
   color: #e2734f;
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  flex: 1;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .eyebrow {
-  font-size: 10.5px;
-  letter-spacing: 1px;
-  opacity: 0.6;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--switch-label);
   text-transform: uppercase;
 }
 
 .rootGrid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 3px;
+  gap: 7px;
 }
 
 .rootButton {
-  height: 30px;
-  border: 1px solid var(--groove);
-  border-radius: 5px;
-  background: var(--panel-recessed);
-  color: var(--cream);
-  font-family: var(--font-mono);
-  font-size: 12.5px;
+  padding: 9px 0;
+  border: 1px solid #100c09;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2c2721, #1d1812);
+  color: #c7bca9;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.4);
-  transition: color 0.08s ease, border-color 0.08s ease;
+    inset 0 1px 0 rgba(255, 236, 200, 0.05),
+    0 2px 3px rgba(0, 0, 0, 0.5);
+  transition: color 0.08s ease;
 }
 
 .rootButton:hover {
@@ -79,34 +102,33 @@
   transform: translateY(1px);
 }
 
-.rootButtonActive {
-  background: var(--amber);
-  color: var(--groove);
-  font-weight: bold;
-  border-color: var(--amber);
-  box-shadow: 0 0 8px 0 rgba(255, 167, 33, 0.45);
-}
-
+.rootButtonActive,
 .rootButtonActive:hover {
-  color: var(--groove);
+  color: var(--on-accent);
+  background: linear-gradient(180deg, var(--gold-light), var(--amber));
+  border-color: #c47d15;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 8px rgba(240, 165, 47, 0.4),
+    0 0 14px rgba(240, 165, 47, 0.3);
 }
 
 .circleToggle {
   align-self: flex-start;
-  margin-top: 2px;
-  padding: 4px 8px;
+  padding: 0;
   border: none;
   background: none;
   color: var(--amber);
-  font-size: 11px;
-  letter-spacing: 0.5px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  opacity: 0.85;
 }
 
 .circleToggle:hover {
-  opacity: 1;
+  color: var(--gold-light);
 }
 
 .circlePanel {
@@ -114,16 +136,15 @@
   flex-direction: column;
   gap: 8px;
   padding: 10px;
-  margin-top: 2px;
-  border: 1px solid var(--groove);
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .circleHelp {
   font-size: 11px;
   line-height: 1.5;
-  opacity: 0.75;
+  color: var(--text-2);
 }
 
 .circleHelp strong {
@@ -134,27 +155,28 @@
 .qualityGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
+  gap: 7px;
 }
 
 .button {
-  height: 32px;
-  min-width: 0;
-  border: 1px solid var(--groove);
-  border-radius: 5px;
-  background: var(--panel-recessed);
-  color: var(--cream);
+  padding: 9px 0;
+  border: 1px solid #100c09;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2a2620, #1c1712);
+  color: #c2b7a5;
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: 12.5px;
+  letter-spacing: 0.02em;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.08s ease, color 0.08s ease, border-color 0.08s ease;
+    inset 0 1px 0 rgba(255, 236, 200, 0.05),
+    0 2px 3px rgba(0, 0, 0, 0.5);
+  transition: color 0.08s ease;
 }
 
 .button:hover {
-  color: var(--amber);
+  color: #f7c268;
 }
 
 .button:active {
@@ -163,27 +185,28 @@
 
 .actions {
   display: flex;
-  gap: 8px;
-  margin-top: 2px;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 6px;
 }
 
 .actionButton {
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--groove);
-  border-radius: 5px;
-  background: var(--panel-recessed);
-  color: var(--cream);
-  font-size: 11px;
+  flex: 1;
+  padding: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: linear-gradient(180deg, #2a241c, #181310);
+  color: #c2b7a5;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.08s ease, border-color 0.08s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 236, 200, 0.06);
+  transition: color 0.08s ease, border-color 0.08s ease;
 }
 
 .actionButton:hover {
+  color: #f7c268;
   border-color: var(--amber-dim);
 }
 
@@ -194,27 +217,26 @@
 .presetList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .presetButton {
   text-align: left;
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--groove);
-  border-radius: 5px;
-  background: var(--panel-recessed);
-  color: var(--cream);
-  font-size: 11.5px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #2a241c, #181310);
+  color: #c2b7a5;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
   cursor: pointer;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.08s ease, border-color 0.08s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 236, 200, 0.05);
+  transition: color 0.08s ease, border-color 0.08s ease;
 }
 
 .presetButton:hover {
+  color: #f7c268;
   border-color: var(--amber-dim);
 }
 

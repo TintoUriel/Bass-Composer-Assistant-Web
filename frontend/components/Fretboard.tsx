@@ -19,115 +19,154 @@ import styles from "./Fretboard.module.css";
 
 const STRING_NUMBERS = [1, 2, 3, 4];
 
+/** Texto oscuro sobre dots claros (dorado/coral), blanco sobre los oscuros (escala). */
+function labelColorFor(hex: string): string {
+  const value = hex.replace("#", "");
+  const r = parseInt(value.slice(0, 2), 16);
+  const g = parseInt(value.slice(2, 4), 16);
+  const b = parseInt(value.slice(4, 6), 16);
+  const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+  return luminance > 150 ? "#20180d" : "#fff";
+}
+
 export function Fretboard() {
   const { fretboardPositions, highlights } = usePlayback();
 
   return (
-    <div className={styles.wrapper}>
-      <svg
-        className={styles.svg}
-        viewBox={`0 0 ${NECK_WIDTH} ${NECK_HEIGHT}`}
-        role="img"
-        aria-label="Diapasón"
-      >
-        <defs>
-          {/* Diapasón de ébano: casi negro, frío, para integrarse al chasis de grafito. */}
-          <linearGradient id="neck-wood" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#26292c" />
-            <stop offset="0.5" stopColor="#1a1c1e" />
-            <stop offset="1" stopColor="#141618" />
-          </linearGradient>
-          <radialGradient id="position-marker" cx="0.35" cy="0.35" r="0.8">
-            <stop offset="0" stopColor="#dfe3e6" />
-            <stop offset="1" stopColor="#a9afb4" />
-          </radialGradient>
-        </defs>
+    <div className={styles.board}>
+      <div className={styles.wrapper}>
+        <svg
+          className={styles.svg}
+          viewBox={`0 0 ${NECK_WIDTH} ${NECK_HEIGHT}`}
+          role="img"
+          aria-label="Diapasón"
+        >
+          <defs>
+            {/* Diapasón de madera clara, cálido. */}
+            <linearGradient id="neck-wood" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#e6bd83" />
+              <stop offset="0.46" stopColor="#d6a768" />
+              <stop offset="1" stopColor="#c69350" />
+            </linearGradient>
+            <radialGradient id="position-marker" cx="0.35" cy="0.35" r="0.8">
+              <stop offset="0" stopColor="#3a2a18" />
+              <stop offset="1" stopColor="#2e2013" />
+            </radialGradient>
+          </defs>
 
-        <rect width={NECK_WIDTH} height={NECK_HEIGHT} fill="url(#neck-wood)" />
+          <rect width={NECK_WIDTH} height={NECK_HEIGHT} fill="url(#neck-wood)" rx={6} />
 
-        {/* Cejilla */}
-        <rect
-          x={NUT_MARGIN}
-          y={STRING_AREA_TOP}
-          width={6}
-          height={STRING_AREA_HEIGHT}
-          fill="#c9ced2"
-        />
-
-        {/* Trastes */}
-        {INTERIOR_FRET_WIRE_X_POSITIONS.map((x, index) => (
+          {/* Cejilla */}
           <rect
-            key={`fretwire-${index}`}
-            x={x - 1}
+            x={NUT_MARGIN}
             y={STRING_AREA_TOP}
-            width={2}
+            width={6}
             height={STRING_AREA_HEIGHT}
-            fill="#767c82"
+            fill="#efe9db"
           />
-        ))}
 
-        {/* Marcadores de posición */}
-        {MARKER_FRETS.map((fret) => (
-          <circle
-            key={`marker-${fret}`}
-            cx={getNoteX(fret)}
-            cy={MARKER_CENTER_Y}
-            r={5}
-            fill="url(#position-marker)"
-          />
-        ))}
+          {/* Trastes */}
+          {INTERIOR_FRET_WIRE_X_POSITIONS.map((x, index) => (
+            <rect
+              key={`fretwire-${index}`}
+              x={x - 1}
+              y={STRING_AREA_TOP}
+              width={2}
+              height={STRING_AREA_HEIGHT}
+              fill="rgba(60,50,42,0.85)"
+            />
+          ))}
 
-        {/* Números de traste */}
-        {MARKER_FRETS.map((fret) => (
-          <text
-            key={`fretlabel-${fret}`}
-            x={getNoteX(fret)}
-            y={FRET_LABEL_Y}
-            className={styles.fretLabel}
-          >
-            {fret}
-          </text>
-        ))}
+          {/* Marcadores de posición (inlays) */}
+          {MARKER_FRETS.map((fret) => (
+            <circle
+              key={`marker-${fret}`}
+              cx={getNoteX(fret)}
+              cy={MARKER_CENTER_Y}
+              r={5}
+              fill="url(#position-marker)"
+            />
+          ))}
 
-        {/* Cuerdas */}
-        {STRING_NUMBERS.map((stringNumber) => (
-          <line
-            key={`string-${stringNumber}`}
-            x1={NUT_MARGIN}
-            x2={NECK_WIDTH}
-            y1={getStringY(stringNumber)}
-            y2={getStringY(stringNumber)}
-            stroke="#9aa0a6"
-            strokeWidth={2}
-          />
-        ))}
+          {/* Números de traste */}
+          {MARKER_FRETS.map((fret) => (
+            <text
+              key={`fretlabel-${fret}`}
+              x={getNoteX(fret)}
+              y={FRET_LABEL_Y}
+              className={styles.fretLabel}
+            >
+              {fret}
+            </text>
+          ))}
 
-        {/* Notas */}
-        {fretboardPositions.map((position) => {
-          const highlightType = highlights[position.note.pitchClass] ?? "None";
-          const isHighlighted = highlightType !== "None";
-          const cx = getNoteX(position.fret);
-          const cy = getStringY(position.stringNumber);
+          {/* Cuerdas */}
+          {STRING_NUMBERS.map((stringNumber) => (
+            <line
+              key={`string-${stringNumber}`}
+              x1={NUT_MARGIN}
+              x2={NECK_WIDTH}
+              y1={getStringY(stringNumber)}
+              y2={getStringY(stringNumber)}
+              stroke="#d8ccb2"
+              strokeWidth={1.5 + stringNumber * 0.6}
+            />
+          ))}
 
-          return (
-            <g key={`${position.stringNumber}-${position.fret}`}>
-              <circle cx={cx} cy={cy} r={10} fill="#3a3f43" opacity={0.65} />
-              <text x={cx} y={cy} className={styles.noteLabel}>
-                {position.note.name}
-              </text>
+          {/* Notas */}
+          {fretboardPositions.map((position) => {
+            const highlightType = highlights[position.note.pitchClass] ?? "None";
+            const isHighlighted = highlightType !== "None";
+            const cx = getNoteX(position.fret);
+            const cy = getStringY(position.stringNumber);
 
-              {isHighlighted && (
-                <>
-                  <circle cx={cx} cy={cy} r={14} fill={highlightColors[highlightType]} />
-                  <text x={cx} y={cy} className={`${styles.noteLabel} ${styles.noteLabelHighlighted}`}>
-                    {position.note.name}
-                  </text>
-                </>
-              )}
-            </g>
-          );
-        })}
-      </svg>
+            if (!isHighlighted) {
+              return (
+                <text
+                  key={`${position.stringNumber}-${position.fret}`}
+                  x={cx}
+                  y={cy}
+                  className={styles.faintNote}
+                >
+                  {position.note.name}
+                </text>
+              );
+            }
+
+            const color = highlightColors[highlightType];
+            return (
+              <g key={`${position.stringNumber}-${position.fret}`}>
+                <circle cx={cx} cy={cy} r={13} fill={color} className={styles.dot} />
+                {/* Brillo cenital que da volumen al dot. */}
+                <circle cx={cx - 3.5} cy={cy - 4} r={4.5} fill="rgba(255,255,255,0.5)" />
+                <text
+                  x={cx}
+                  y={cy}
+                  className={styles.dotLabel}
+                  fill={labelColorFor(color)}
+                >
+                  {position.note.name}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+
+      <div className={styles.legend}>
+        <span className={styles.legendItem}>
+          <span className={styles.legendSwatch} style={{ background: highlightColors.ChordRoot }} />
+          Fundamental
+        </span>
+        <span className={styles.legendItem}>
+          <span className={styles.legendSwatch} style={{ background: highlightColors.ChordThird }} />
+          Tercera
+        </span>
+        <span className={styles.legendItem}>
+          <span className={styles.legendSwatch} style={{ background: highlightColors.ChordFifth }} />
+          Quinta
+        </span>
+      </div>
     </div>
   );
 }

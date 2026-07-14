@@ -1,33 +1,43 @@
-/* Estética "Studio Console" — instrumento de estudio de gama alta (tipo Universal Audio
-   Apollo / canal de consola Neve): grafito mate, bordes de línea de pelo, tipografía técnica
-   y un único acento ámbar reservado a estados encendidos y a la pantalla de lectura. Sin oro,
-   sin cromo brillante, sin texturas: la seriedad viene de la precisión, no de la decoración.
-   Los nombres de token se conservan para que los componentes hijos hereden el cambio. */
+/* Estética "Rack / hardware" del handoff de Claude Design: chasis cálido en marrón/negro con
+   un único acento dorado (#f0a52f) para estados encendidos, perillas, y la pantalla de lectura.
+   Paneles con gradiente vertical, bordes casi negros y relieve por sombra interior; diapasón de
+   madera clara; tipografía Oswald / Barlow Semi Condensed / JetBrains Mono. Los nombres de token
+   se conservan para que los componentes hijos hereden el cambio. */
 :root {
-  --background: #0d0e0f;
-  --background-vignette: #131517;
+  --background: #0a0908;
+  --background-vignette: #211d17;
 
-  --panel: #16181a;
-  --panel-recessed: #0a0b0c;
-  --groove: #262a2e;
+  /* Gradiente de panel del rack (usado en .panel). --panel es el sólido de respaldo. */
+  --panel: #201a12;
+  --panel-top: #262017;
+  --panel-bottom: #191410;
+  --panel-recessed: #0d0b08;
 
-  --amber: #eaa23c;
-  --amber-dim: #7d6a41;
-  --cream: #d6dade;
-  --switch-label: #7b8288;
+  /* Bordes casi negros del rack; el relieve viene del brillo interior superior. */
+  --border: #0a0806;
+  --groove: #0a0806;
 
-  /* Metal maquinado neutro para el bisel de las perillas (mate, no cromo). */
-  --steel-hi: #7c8288;
-  --steel-lo: #23272a;
+  --amber: #f0a52f;
+  --amber-dim: #b9821f;
+  --gold-light: #ffce78;
+  --gold-bright: #ffd88a;
+  /* Texto oscuro sobre superficies doradas encendidas. */
+  --on-accent: #231803;
 
-  --led-off: #1a1d1f;
-  --led-off-ring: #050607;
+  --cream: #f2e9d8;
+  --cream-2: #eadfce;
+  --switch-label: #8a8072;
+  --text-2: #9c9284;
 
-  --font-display: var(--font-bebas-neue);
-  --font-mono: var(--font-geist-mono);
-  --font-body: var(--font-geist-sans);
+  --led-off: #141009;
+  --led-off-ring: rgba(255, 236, 200, 0.06);
+  --led-green: #48e080;
 
-  --shell-radius: 8px;
+  --font-display: var(--font-oswald);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-body: var(--font-barlow);
+
+  --shell-radius: 13px;
 }
 
 html {
@@ -41,14 +51,28 @@ body {
 }
 
 body {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
   color: var(--cream);
-  background: radial-gradient(ellipse at top, var(--background-vignette) 0%, var(--background) 72%);
-  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  background: radial-gradient(130% 90% at 50% -12%, #211d17 0%, #100e0b 55%, #0a0908 100%);
+  font-family: var(--font-body), "Barlow Semi Condensed", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Textura de grano/ruido sutil del chasis (SVG turbulence inline, como en el handoff). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 130px;
 }
 
 * {
@@ -68,10 +92,22 @@ html {
 
 ::selection {
   background: var(--amber);
-  color: var(--groove);
+  color: var(--on-accent);
 }
 
-/* Riel de scroll fino para los paneles internos (la página en sí no debería necesitar scroll). */
+@keyframes ledPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 9px rgba(72, 224, 128, 0.9);
+  }
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 3px rgba(72, 224, 128, 0.4);
+  }
+}
+
+/* Riel de scroll fino para los paneles internos. */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--amber-dim) transparent;

@@ -4,10 +4,12 @@ import type { HighlightType } from "./types";
 export const highlightColors: Record<HighlightType, string> = {
   None: "transparent",
 
-  ChordRoot: "#E53935",
-  ChordThird: "#43A047",
-  ChordFifth: "#1E88E5",
-  ChordSeventh: "#FDD835",
+  // Roles principales del acorde alineados al handoff de Claude Design:
+  // fundamental dorada, tercera teal, quinta coral.
+  ChordRoot: "#e79a2a",
+  ChordThird: "#3ea699",
+  ChordFifth: "#cf6b48",
+  ChordSeventh: "#e5c24a",
   ChordNinth: "#FB8C00",
   ChordEleventh: "#4DD0E1",
   ChordThirteenth: "#8E24AA",
